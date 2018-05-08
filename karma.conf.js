@@ -31,14 +31,17 @@ module.exports = function (config) {
       config: './angular-cli.json',
       environment: 'dev'
     },
-    reporters: config.angularCli && config.angularCli.codeCoverage
-              ? ['mocha', 'karma-remap-istanbul']
-              : ['mocha'],
+    reporters: ['progress', 'junit'],
+    junitReporter: {
+      outputDir: process.env.NEVERCODE_XUNIT_RESULTS_DIR,
+      outputFile: "karma-test-results.xml",
+      useBrowserName: true,
+    },
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
     browsers: ['Chrome'],
-    singleRun: false
+    singleRun: true
   });
 };
