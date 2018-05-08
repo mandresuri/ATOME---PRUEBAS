@@ -51,7 +51,7 @@ export class LoginPage {
     console.log('ionViewDidLoad LoginPage');
   }
 
-//autenticar
+// autenticar
   login(user: User) 
 {
 
