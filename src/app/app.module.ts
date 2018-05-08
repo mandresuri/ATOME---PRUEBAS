@@ -16,6 +16,7 @@ import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
 
 import { FIREBASE_CONFIG } from './firebase.credentials';
 import { EstacionesListService } from '../services/estaciones-list/estaciones-list.service';
+import { LoginPage } from '../pages/login/login';
 
 
 
@@ -23,6 +24,7 @@ import { EstacionesListService } from '../services/estaciones-list/estaciones-li
 @NgModule({
   declarations: [
     MyApp,
+    LoginPage
     
   ],
   imports: [
@@ -35,7 +37,7 @@ import { EstacionesListService } from '../services/estaciones-list/estaciones-li
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    
+    LoginPage
   ],
   providers: [
     StatusBar,
