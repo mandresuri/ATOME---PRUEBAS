@@ -61,7 +61,7 @@
     "tslint": "^5.9.1",
     "tslint-eslint-rules": "^5.1.0",
     "typescript": "~2.6.2",
-    "webpack": "^1.13.1"
+    "webpack": "^3.0.0"
   },
   "description": "An Ionic project",
   "cordova": {
