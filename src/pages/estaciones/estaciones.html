@@ -1,0 +1,58 @@
+<ion-header>
+    <ion-navbar color="azulatome">
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title>Estaciones de Trabajo</ion-title>
+    </ion-navbar>
+    <ion-navbar color="azulatome">
+      <ion-row>
+        <ion-col class="groupTabs">
+          <div class="centrar">
+          <button class="tab tab1" (click)="openPage('MisestacionesPage')">Mis Bitácoras</button>
+        </div>
+        </ion-col>
+        <ion-col class="groupTabs">
+            <div class="centrar">
+          <button class="tab tab2"  (click)="openPage('EstacionesPage')"> Estaciones de Trabajo</button>
+        </div>
+        </ion-col>
+      
+      </ion-row>
+     </ion-navbar>
+  </ion-header>
+
+<ion-content padding>
+    <ion-searchbar (ionInput)="getItems($event)" placeholder="Buscar"></ion-searchbar>
+    <!-- se deben listar en orden de posibilidad de canje -->
+    <ion-list class="ancho">
+    <ion-card ion-item >  
+        <!-- *ngFor="let bitacora of bitacoras let i = index" -->
+        <div class="borde">
+          <ion-refresher *ngIf="mostrarSpiner === false" (ionRefresh)="refresh_bluetooth($event)">
+            <ion-refresher-content refreshingText="Buscando dispositivos bluetooth"></ion-refresher-content>
+          </ion-refresher>
+          <ion-segment [hidden]="mostrarSpiner === false" align="center">
+            <ion-spinner></ion-spinner>
+            Buscando dispositivos bluetooth
+          </ion-segment>
+          <ion-item-group>
+            <ion-item-sliding *ngFor="let device of devices">
+              <button (click)="openPageHija('CrearBitacoraPage',device)" ion-item>
+                <h3>Nombre: {{device.name}}</h3>
+                <p>Id: {{device.id}}</p>
+                <p>Dirección <span [hidden]="device.address == undefined">mac</span><span [hidden]="device.uuid == undefined">uuid</span>: {{device.address}}{{device.uuid}}</p>
+                <p><span [hidden]="device.class == undefined">Clase</span><span [hidden]="device.rssi == undefined">Rssi</span>: {{device.class}}{{device.rssi}}</p>
+              </button>
+            </ion-item-sliding>
+          </ion-item-group>
+
+      </div>
+      </ion-card>
+    
+    </ion-list>
+    <div [hidden]="li_devices.length > 0 || mostrarSpiner == true" align="center">
+      <p>No se han encontrado dispositivos desliza hacia abajo para volver a buscar</p>
+    </div>
+
+</ion-content>

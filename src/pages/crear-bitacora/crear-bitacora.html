@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-navbar color="azulatome">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Crear Bitácora de Trabajo</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-item>
+    <ion-label>Estacion de Trabajo: {{device.name}}<br></ion-label>
+  </ion-item>
+  <ion-row>
+      <button ion-button (click)="conectar(device)"><ion-icon name="bluetooth"></ion-icon></button>
+      <button ion-button (click)="desconectar()"><ion-icon name="bluetooth"></ion-icon></button>
+      <button ion-button (click)="pedirAltura()"></button>
+      <ion-item>
+        <ion-label>{{estadoConexion}}</ion-label>
+        <ion-input></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>{{recibido}}</ion-label>
+        <ion-input></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>{{altura}}</ion-label>
+        <ion-input></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>{{tiempo}}</ion-label>
+        <ion-input></ion-input>
+      </ion-item>
+  </ion-row>
+
+  <ion-fab right bottom>
+      <button ion-fab color="atome" (click)="iniciarPractica()"><ion-icon name="play"></ion-icon></button>
+     
+    </ion-fab>
+</ion-content>
