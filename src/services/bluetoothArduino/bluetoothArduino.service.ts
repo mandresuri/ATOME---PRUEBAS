@@ -29,20 +29,20 @@ export class BluetoothArduinoService {
 
   buscar_bluetooth() {
     return new Promise((resolve, reject) => {
-      this.bluetoothSerial.isEnabled().then(success =>{
+      this.bluetoothSerial.isEnabled().then(success => {
         this.bluetoothSerial.discoverUnpaired().then(success => {
           if (success.length > 0) {
             resolve(success);
           } else {
-            reject('No se encontraron dispositivos');
+            reject("No se encontraron dispositivos");
           }
         }).catch((error) => {
           console.log(`[1] Error: ${JSON.stringify(error)}`);
-          reject('Bluetooth no disponible en esta plataforma');
+          reject("Bluetooth no disponible en esta plataforma");
         });
       }, fail => {
         console.log(`[2] Error: ${JSON.stringify(fail)}`);
-        reject('El bluetooth no está disponible o está apagado');
+        reject("El bluetooth no está disponible o está apagado");
       });
     });
   }
@@ -55,7 +55,7 @@ export class BluetoothArduinoService {
   conectar(id: string) {
     return new Promise((resolve, reject) => {
       this.conexion = this.bluetoothSerial.connect(id).subscribe((data: Observable<any>) => {
-        //this.enviarMensajes();
+        // this.enviarMensajes();
         resolve("Conectado");
       }, fail => {
         console.log(`[3] Error conexión: ${JSON.stringify(fail)}`);
@@ -90,10 +90,10 @@ export class BluetoothArduinoService {
       this.bluetoothSerial.isConnected().then(isConnected => {
         this.reader = Observable.fromPromise(this.bluetoothSerial.write(message))
           .flatMap(() => {
-            return this.bluetoothSerial.subscribeRawData()
+            return this.bluetoothSerial.subscribeRawData();
           })
           .flatMap(() => {
-            return this.bluetoothSerial.readUntil('#');   // <= delimitador
+            return this.bluetoothSerial.readUntil("#");   // <= delimitador
           });
         this.reader.subscribe(data => {
           observer.next(data);

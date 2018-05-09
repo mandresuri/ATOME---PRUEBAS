@@ -5,7 +5,7 @@ export const FIREBASE_CONFIG = {
     projectId: "atome-77ef6",
     storageBucket: "",
     messagingSenderId: "825006961025"
-}
+};
 
 // export const FIREBASE_CONFIG = {
 //     apiKey: "AIzaSyDUz7IJOCgsz5Zk9HBoU0cwF9z2Q229LtI",

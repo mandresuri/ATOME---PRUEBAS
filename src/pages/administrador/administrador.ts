@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component } from "@angular/core";
+import { IonicPage, NavController, NavParams } from "ionic-angular";
 
 /**
  * Generated class for the AdministradorPage page.
@@ -10,8 +10,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-administrador',
-  templateUrl: 'administrador.html',
+  selector: "page-administrador",
+  templateUrl: "administrador.html",
 })
 export class AdministradorPage {
 
@@ -19,7 +19,7 @@ export class AdministradorPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad AdministradorPage');
+    console.log("ionViewDidLoad AdministradorPage");
   }
 
 }

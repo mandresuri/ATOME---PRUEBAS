@@ -1,4 +1,4 @@
 export interface Usuarios {
     tipo: string;
-    nombre: string
+    nombre: string;
 }
