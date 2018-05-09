@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Platform, AlertController, Refresher } from 'ionic-angular';
-import { BluetoothArduinoService } from '../../services/bluetoothArduino/bluetoothArduino.service';
-import { Observable } from 'rxjs';
-import { Estacion } from '../../app/models/estacion';
-import { EstacionesListService } from '../../services/estaciones-list/estaciones-list.service';
+import { Component } from "@angular/core";
+import { IonicPage, NavController, NavParams, Platform, AlertController, Refresher } from "ionic-angular";
+import { BluetoothArduinoService } from "../../services/bluetoothArduino/bluetoothArduino.service";
+import { Observable } from "rxjs";
+import { Estacion } from "../../app/models/estacion";
+import { EstacionesListService } from "../../services/estaciones-list/estaciones-list.service";
 
 /**
  * Generated class for the EstacionesPage page.
@@ -14,18 +14,18 @@ import { EstacionesListService } from '../../services/estaciones-list/estaciones
 
 @IonicPage()
 @Component({
-  selector: 'page-estaciones',
-  templateUrl: 'estaciones.html',
+  selector: "page-estaciones",
+  templateUrl: "estaciones.html",
 })
 export class EstacionesPage {
 
   li_devices: Array<any> = [];
   devices: Array<any> = [];
-  atomeList$: Observable<Estacion[]>
+  atomeList$: Observable<Estacion[]>;
   mostrarSpiner = true;
 
-  constructor(public navCtrl: NavController, 
-    public navParams: NavParams,     
+  constructor(public navCtrl: NavController,
+    public navParams: NavParams,
     private platform: Platform,
     private alertCtrl: AlertController,
     private atome: EstacionesListService,
@@ -37,25 +37,22 @@ export class EstacionesPage {
       this.atomeList$ = this.atome.getEstacionesList().snapshotChanges().map(changes => {
         return changes.map(c => ({
           key: c.payload.key, ...c.payload.val()
-        }))
-      })
+        }));
+      });
 
-      console.log("basura"+this.atomeList$);
+      console.log( "basura" + this.atomeList$ );
 
       this.bluetooth.buscar_bluetooth().then((success: Array<Object>) => {
         this.li_devices = success;
         this.atomeList$.subscribe(data => {
             data.forEach(atom => {
               this.li_devices.forEach(dev => {
-                if (atom.id == dev.id){
+                if ( atom.id === dev.id ) {
                   this.devices.push(dev);
                 }
               });
             });
         })
-        
-
-
         this.mostrarSpiner = false;
       }, fail => {
         this.bluetooth.presentToast(fail);
@@ -70,9 +67,9 @@ export class EstacionesPage {
   openPage(page) {
     this.navCtrl.setRoot(page);
   }
-  openPageHija(page,device) {
-    //this.navCtrl.push(page);
-    this.navCtrl.push(page,{deviceConectado: device});
+  openPageHija( page , device ) {
+    // this.navCtrl.push(page);
+    this.navCtrl.push( page, {deviceConectado: device} );
   }
 
   public ngOnDestroy() {

@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
+import { Component } from "@angular/core";
+import { IonicPage, NavController, NavParams, MenuController } from "ionic-angular";
 
 /**
  * Generated class for the MisestacionesPage page.
@@ -10,8 +10,8 @@ import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angul
 
 @IonicPage()
 @Component({
-  selector: 'page-misestaciones',
-  templateUrl: 'misestaciones.html',
+  selector: "page-misestaciones",
+  templateUrl: "misestaciones.html",
 })
 export class MisestacionesPage {
 
@@ -26,8 +26,8 @@ export class MisestacionesPage {
   }
 
   menu1Active() {
-    this.menu.enable(true, 'menu1');
-    this.menu.enable(false, 'menu2');
+    this.menu.enable(true, "menu1");
+    this.menu.enable(false, "menu2");
   }
 
   openPage(page){
