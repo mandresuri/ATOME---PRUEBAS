@@ -4,24 +4,24 @@ import { Estacion } from "../../app/models/estacion";
 
 
 @Injectable()
-export class EstacionesListService{
-    private EstacionesList = this.db.list<Estacion>('estacion')
+export class EstacionesListService {
+    private EstacionesList = this.db.list<Estacion>("estacion");
     
-    constructor(private db: AngularFireDatabase){ }
+    constructor(private db: AngularFireDatabase) { }
 
-    getEstacionesList(){
+    getEstacionesList() {
         return this.EstacionesList;
     }
 
-    addEstacion(estacion:Estacion){
-        return this.EstacionesList.push(estacion)
+    addEstacion(estacion:Estacion) {
+        return this.EstacionesList.push(estacion);
     }
 
-    editEstacion(estacion:Estacion){
-        return this.EstacionesList.update(estacion.key, estacion)
+    editEstacion(estacion:Estacion) {
+        return this.EstacionesList.update(estacion.key, estacion);
     }
 
-    removeEstacion(estacion:Estacion){
-        return this.EstacionesList.remove(estacion.key)
+    removeEstacion(estacion:Estacion) {
+        return this.EstacionesList.remove(estacion.key);
     }
 }

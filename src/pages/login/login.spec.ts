@@ -87,6 +87,21 @@ describe('Page: Login Page', () => {
         
            });
 
+           it('el usuario tipo 1 entra a pagina de admin', () => {
+            
+                    let usuario : Usuarios
+                    usuario.tipo = "1";
+                    let prueba = this.login(usuario)
+
+                   let productsService = fixture.debugElement.injector.get(AuthProvider);
+                   let firstProduct = productsService.loginUser(usuario.nombre,usuario.tipo);
+            
+                   firstProduct.then(user=>{
+                       expect (user.tipo).toEqual("1")
+                   })
+                   
+            
+               });
  
  
 });
