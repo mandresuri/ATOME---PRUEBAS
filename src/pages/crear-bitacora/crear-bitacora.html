@@ -12,8 +12,8 @@
 <ion-content padding>
 
   <ion-item>
-    <!-- <ion-label>Estación de Trabajo: <b>xxxxx</b><br></ion-label>  -->
-    <ion-label>Estacion de Trabajo: <b>{{device.name}}</b><br></ion-label> 
+    <ion-label>Estación de Trabajo: <b>xxxxx</b><br></ion-label> 
+    <!-- <ion-label>Estacion de Trabajo: <b>{{device.name}}</b><br></ion-label>  -->
 
  
   </ion-item>
@@ -36,8 +36,8 @@
           <ion-label>Indicaciones de la Práctica:</ion-label>
   
         <ion-item>
-          <ion-textarea class="area">{{device.descripcion}}</ion-textarea>
-          <!-- <ion-textarea class="area">tttt</ion-textarea>  -->
+          <!-- <ion-textarea class="area">{{device.descripcion}}</ion-textarea> -->
+          <ion-textarea class="area">tttt</ion-textarea> 
         </ion-item>
       </ion-row>
       <ion-row>
@@ -53,15 +53,21 @@
         <ion-label>Tiempo: {{tiempo}}</ion-label>
         <ion-input></ion-input>
       </ion-item>
-      <ion-item>
+      <ion-col>
       <button ion-button (click)="pedirAltura()">Obtener Altura</button>
-      </ion-item>
+    </ion-col>
+    <ion-col>
+        <button ion-button color="secondary" [disabled]="!isenabled2" (click)="iniciarPractica()">Iniciar</button>
+      </ion-col>
   </ion-row>
+   <ion-row>
+     <ion-row col-12>
+       
+        <button  style="width: 100%;" ion-button color="dark" [disabled]="!terminar" (click)="openPage('BitacoraDetallePage')">Crear Bitacora</button>
+    
+     </ion-row>
+   </ion-row>
 
-  <ion-fab right bottom>
-      <button ion-fab color="atome" [disabled]="!isenabled2" (click)="iniciarPractica()"><ion-icon name="play"></ion-icon></button>
-     
-    </ion-fab>
 
   
 </ion-content>
