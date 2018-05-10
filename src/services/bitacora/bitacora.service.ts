@@ -24,4 +24,8 @@ export class BitacorasListService {
     removeBitacora(bitacora:Bitacora) {
         return this.BitacoraList.remove(bitacora.key);
     }
+
+    getBitacoraByUser(uid:string){
+        return this.BitacoraList.query.orderByChild('usuario').equalTo(uid);
+    }
 }
