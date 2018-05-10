@@ -5,6 +5,9 @@ import { Observable } from "rxjs";
 import { Estacion } from "../../app/models/estacion";
 import { EstacionesListService } from "../../services/estaciones-list/estaciones-list.service";
 
+
+
+
 /**
  * Generated class for the EstacionesPage page.
  *
@@ -33,32 +36,31 @@ export class EstacionesPage {
   }
 
   ionViewDidEnter() {
-    this.platform.ready().then(() => {
-      this.atomeList$ = this.atome.getEstacionesList().snapshotChanges().map(changes => {
-        return changes.map(c => ({
-          key: c.payload.key, ...c.payload.val()
-        }));
-      });
+    // this.platform.ready().then(() => {
+    //   this.atomeList$ = this.atome.getEstacionesList().snapshotChanges().map(changes => {
+    //     return changes.map(c => ({
+    //       key: c.payload.key, ...c.payload.val()
+    //     }));
+    //   });
 
-      console.log( "basura" + this.atomeList$ );
 
-      this.bluetooth.buscar_bluetooth().then((success: Array<Object>) => {
-        this.li_devices = success;
-        this.atomeList$.subscribe(data => {
-            data.forEach(atom => {
-              this.li_devices.forEach(dev => {
-                if ( atom.id === dev.id ) {
-                  this.devices.push(dev);
-                }
-              });
-            });
-        })
-        this.mostrarSpiner = false;
-      }, fail => {
-        this.bluetooth.presentToast(fail);
-        this.mostrarSpiner = false;
-      });
-    });
+    //   this.bluetooth.buscar_bluetooth().then((success: Array<Object>) => {
+    //     this.li_devices = success;
+    //     this.atomeList$.subscribe(data => {
+    //         data.forEach(atom => {
+    //           this.li_devices.forEach(dev => {
+    //             if ( atom.id === dev.id ) {
+    //               this.devices.push(dev);
+    //             }
+    //           });
+    //         });
+    //     })
+    //     this.mostrarSpiner = false;
+    //   }, fail => {
+    //     this.bluetooth.presentToast(fail);
+    //     this.mostrarSpiner = false;
+    //   });
+    // });
   
   }
 
@@ -69,7 +71,7 @@ export class EstacionesPage {
   }
   openPageHija( page , device ) {
     // this.navCtrl.push(page);
-    this.navCtrl.push( page, {deviceConectado: device} );
+    this.navCtrl.push( page, {deviceConectado: device}, );
   }
 
   public ngOnDestroy() {

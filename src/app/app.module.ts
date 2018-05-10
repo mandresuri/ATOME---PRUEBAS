@@ -17,6 +17,8 @@ import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
 import { FIREBASE_CONFIG } from './firebase.credentials';
 import { EstacionesListService } from '../services/estaciones-list/estaciones-list.service';
 import { LoginPage } from '../pages/login/login';
+import { BitacorasListService } from '../services/bitacora/bitacora.service';
+import { MedidasListService } from '../services/medidas/medidas.service';
 
 
 
@@ -45,6 +47,8 @@ import { LoginPage } from '../pages/login/login';
     BluetoothArduinoService,
     BluetoothSerial,
     EstacionesListService,
+    BitacorasListService,
+    MedidasListService,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthProvider,
   ]
