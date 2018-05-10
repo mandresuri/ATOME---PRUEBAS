@@ -196,7 +196,7 @@ iniciarPractica(){
   this.mensaje = "1";
    this.terminar = false;
 ///temporal
-   this.tiempo = 23;
+   this.tiempo = 0.34;
    this.guardarVariables(this.altura,this.tiempo);
 
 //  this.enviarMensajes();
@@ -228,8 +228,8 @@ pedirAltura(){
   }
 
 
-  openPage(page) {
-    this.navCtrl.setRoot(page);
+  openPageDetalle(page, bitacora) {
+    this.navCtrl.setRoot(page, bitacora);
   }
 
 }
