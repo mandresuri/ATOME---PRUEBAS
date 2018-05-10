@@ -24,4 +24,7 @@ export class MedidasListService {
     removeMedida(medida:Medida) {
         return this.MedidasList.remove(medida.key);
     }
+    getMedidaByBitacora(bitacoraID:string) {
+        return this.MedidasList.query.orderByChild('bitacora').equalTo(bitacoraID);
+    }
 }
