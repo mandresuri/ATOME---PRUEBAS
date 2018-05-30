@@ -11,9 +11,12 @@ import * as firebase from 'firebase/app';
 */
 @Injectable()
 export class AuthProvider {
-
+  authenticated: any;
+  authState: any = null;
   constructor(private afAuth :  AngularFireAuth) {
-    //console.log('Hello AuthProvider Provider');
+    this.afAuth.authState.subscribe((auth) => {
+      this.authState = auth
+    });
   }
 
     // Login de usuario
@@ -21,6 +24,11 @@ export class AuthProvider {
   return this.afAuth.auth.signInWithEmailAndPassword(email, password)
     .then(user=>Promise.resolve(user))
     .catch(err=>Promise.reject(err))
+}
+
+ // Returns current user UID
+ get currentUserId(): string {
+  return this.authenticated ? this.authState.uid : '';
 }
 
  // Devuelve la session

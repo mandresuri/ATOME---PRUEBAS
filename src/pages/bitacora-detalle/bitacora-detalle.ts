@@ -20,24 +20,30 @@ import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
   templateUrl: 'bitacora-detalle.html',
 })
 export class BitacoraDetallePage {
-bitacoraID: string
-medidasList$: AngularFireList<Medida[]>;
+bitacoraID: string;
 
-// Observable<Medida[]>;
+medidas : any=[];
+
   constructor(public navCtrl: NavController, 
     public navParams: NavParams,
     private bitacora : BitacorasListService,
     private medida : MedidasListService,
     private db: AngularFireDatabase
   ) {
-    this.bitacoraID = this.navParams.get('llave');
+    this.medidas = [];
+   this.bitacoraID = this.navParams.get('llave');
+  
+     
+    this.medida.getMedidaByBitacora(this.bitacoraID).valueChanges()
+        .subscribe(dato=>{
+          this.medidas = dato;
+        });
+   console.log( this.medidas);     
+    
   }
 
   ionViewDidLoad() {
-   // this.medidasList$ = this.db.list('/medida', ref => ref.orderByChild('bitacora').equalTo(this.bitacoraID));
   
-  
-    //this.medida.getMedidaByBitacora(this.bitacoraID);
 
   }
 

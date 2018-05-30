@@ -9,6 +9,8 @@ import { Bitacora } from "../../app/models/bitacora";
 import { BitacorasListService } from "../../services/bitacora/bitacora.service";
 import { Medida } from "../../app/models/medida";
 import { MedidasListService } from "../../services/medidas/medidas.service";
+import { MyApp } from "../../app/app.component";
+
 
 
 /**
@@ -37,6 +39,10 @@ export class CrearBitacoraPage {
   terminar : boolean;
   newbitacora : Bitacora;
   newmedida : Medida;
+  estacionId : string;
+  fecha : string;
+  name : string;
+  descripcion : string;
 
   llave : string;
   public selectedvalue;
@@ -48,7 +54,8 @@ export class CrearBitacoraPage {
     private platform: Platform,
     private alertCtrl: AlertController,
     private bitacora : BitacorasListService,
-    private medida : MedidasListService
+    private medida : MedidasListService,
+     public global : MyApp,
   ) {
     this.device = this.navParams.get('deviceConectado');
     console.log('carga estaciones');   
@@ -56,8 +63,20 @@ export class CrearBitacoraPage {
     console.log('selecciona');
     console.log(this.selectedvalue);
   }
+
+  
+  ionViewDidLoad() {
+// esto es temporal
+    this.name = "Caida Libre";
+    this.descripcion = "se debe ajustar la altura, verificar que la practica este lista, presionar obtener altura e iniar la practica";
+
+  }
+
   ionViewDidEnter() {
     this.device = this.navParams.get('deviceConectado');
+    // ojo se deben descomentar esto
+   // this.name = this.device.name;
+   // this.descripcion = this.device.descripcion;
     console.log('carga');
     console.log(this.device);
     
@@ -74,12 +93,14 @@ export class CrearBitacoraPage {
 }
 
 conectar(seleccion){
+this.fecha  = new Date().toLocaleDateString();
+this.estacionId = 'est1'; // por ahora, esto se debe traer del device
 
 this.newbitacora ={
-    nombre: 'caida libre', //this.device.name,
-    usuario: 'yh',
-    fecha: '10-05-2018',
-    estacion: 'keyEstacion'
+    nombre: 'Caida libre', //this.device.name,
+    usuario: this.global.uid,
+    fecha: this.fecha,
+    estacion: this.estacionId
 }  ;
 
 this.bitacora.addBitacora(this.newbitacora).then(ref=>{
@@ -196,7 +217,7 @@ iniciarPractica(){
   this.mensaje = "1";
    this.terminar = false;
 ///temporal
-   this.tiempo = 0.34;
+   this.tiempo = 0.2;
    this.guardarVariables(this.altura,this.tiempo);
 
 //  this.enviarMensajes();
@@ -205,7 +226,7 @@ pedirAltura(){
   this.mensaje = "2"
   this.terminar = false;
 // temporal
-  this.altura=  10;
+  this.altura= 7;
   this.isenabled2 = true;
 
  // this.enviarMensajes();
@@ -224,12 +245,10 @@ pedirAltura(){
    this.terminar = true;
  }
 
-  ionViewDidLoad() {
-  }
 
 
   openPageDetalle(page, bitacora) {
-    this.navCtrl.setRoot(page, bitacora);
+    this.navCtrl.push(page, {llave:bitacora});
   }
 
 }

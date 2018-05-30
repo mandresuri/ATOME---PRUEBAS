@@ -26,20 +26,20 @@
       <ion-searchbar (ionInput)="getItems($event)" placeholder="Buscar"></ion-searchbar>
       <!-- se deben listar en orden de posibilidad de canje -->
       <ion-list class="ancho">
-      <ion-card ion-item >  
-          <!-- *ngFor="let bitacora of bitacoras let i = index" -->
+      <ion-card ion-item *ngFor="let bitacora of items$ | async " >  
+          <!--  -->
           <div class="borde">
         <ion-item>
           <ion-card-content>
            
             <ion-card-title>
-              Caida Libre
+              {{bitacora.nombre}}
               </ion-card-title>
             <p  class="desc">
              descripcion
             </p>
           <ion-row>
-           <p> <b>Est. Trabajo:  </b> Caida libre </p>
+           <p> <b>Est. Trabajo:  </b>  {{bitacora.estacion}} </p>
           </ion-row>
           <ion-row class="opciones">
             <ion-col>
@@ -53,13 +53,12 @@
             <ion-col>
               <div class="letra17">
                 <ion-icon name="calendar"></ion-icon><br>
-                16/04/2018
+                {{bitacora.fecha}}
               </div>
-              <!-- <button class="opcion puntos"><ion-icon name="star"></ion-icon><br>{{premio.valorPuntos}}</button> -->
               </ion-col>
               <ion-col>
                  
-                <button class="opcion puntos"><ion-icon name="eye"></ion-icon><br>ver</button>
+                <button class="opcion puntos" (click)="openPageDetalle('BitacoraDetallePage', bitacora.key)"><ion-icon name="eye"></ion-icon><br>ver</button>
                 </ion-col>      
           </ion-row>
        

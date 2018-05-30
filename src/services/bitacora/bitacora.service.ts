@@ -26,6 +26,9 @@ export class BitacorasListService {
     }
 
     getBitacoraByUser(uid:string){
-        return this.BitacoraList.query.orderByChild('usuario').equalTo(uid);
+        return this.db.list('/bitacora/', ref=> ref.orderByChild('usuario').equalTo(uid));
+
+
     }
+   
 }

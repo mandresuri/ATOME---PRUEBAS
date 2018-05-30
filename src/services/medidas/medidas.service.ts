@@ -24,12 +24,14 @@ export class MedidasListService {
     removeMedida(medida:Medida) {
         return this.MedidasList.remove(medida.key);
     }
-    // getMedidaByBitacora(bitacoraID:string) {
-    //     return this.db.list('/medida', {
-    //         query: {
-    //            orderByChild: 'bitacora',
-    //           equalTo: bitacoraID
-    //         }
-    //       });
-    // }
+
+    getMedida(){
+        return this.db.list('/medida/');
+    }
+    getMedidaByBitacora(bitacoraID:string) {
+        return this.db.list('/medida/', ref=> ref.orderByChild('bitacora').equalTo(bitacoraID));
+    }
 }
+
+
+

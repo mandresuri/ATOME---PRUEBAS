@@ -1,3 +1,4 @@
+
 import { Component } from '@angular/core';
 import { IonicPage, NavController,  AlertController  } from 'ionic-angular';
 import { MenuController } from 'ionic-angular';
@@ -7,6 +8,9 @@ import { User } from '../../app/models/user';
 import { AngularFireDatabase, AngularFireList, AngularFireObject } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import { Usuarios } from '../../app/models/usuario';
+import { MyApp } from '../../app/app.component';
+
+
 
 /**
  * Generated class for the LoginPage page.
@@ -27,10 +31,15 @@ export class LoginPage {
  // usuarioss: AngularFireList<any>;
 //  tipo: FirebaseObjectObservable<any>;
  // usuarios$: FirebaseListObservable<Usuarios[]>;
-  constructor(public navCtrl: NavController,  public menu: MenuController,
+  constructor(
+    public navCtrl: NavController, 
+    public global : MyApp,
+ 
+    public menu: MenuController,
     private afAuth: AngularFireAuth,
-    private   database: AngularFireDatabase,
-    public alertCtrl : AlertController
+    private database: AngularFireDatabase,
+    public alertCtrl : AlertController,
+
   ) {
     
   
@@ -48,7 +57,6 @@ export class LoginPage {
   } 
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
     this.user.email = "y@y.co";
     this.user.password = "123456";
   }
@@ -64,8 +72,9 @@ export class LoginPage {
  .then((success)=>{
 
    const authObserv= this.afAuth.authState.subscribe(auth => {
-    console.log('sucees');
-    console.log(auth.uid);
+   // console.log('sucees');
+   // console.log(auth.uid);
+   this.global.uid= auth.uid;
     this.usuarios$ = this.database.object('/usuarios/'+auth.uid);
     
     console.log(this.usuarios$);

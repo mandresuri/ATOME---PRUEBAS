@@ -20,13 +20,15 @@ import { LoginPage } from '../pages/login/login';
 import { BitacorasListService } from '../services/bitacora/bitacora.service';
 import { MedidasListService } from '../services/medidas/medidas.service';
 
+import { IonicStorageModule } from '@ionic/storage';
+
+
 
 
 
 @NgModule({
   declarations: [
-    MyApp,
-    LoginPage
+    MyApp
     
   ],
   imports: [
@@ -34,12 +36,12 @@ import { MedidasListService } from '../services/medidas/medidas.service';
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(FIREBASE_CONFIG),
     AngularFireDatabaseModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp,
-    LoginPage
+    MyApp
   ],
   providers: [
     StatusBar,
