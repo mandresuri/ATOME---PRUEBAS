@@ -67,16 +67,16 @@ export class CrearBitacoraPage {
   
   ionViewDidLoad() {
 // esto es temporal
-    this.name = "Caida Libre";
-    this.descripcion = "se debe ajustar la altura, verificar que la practica este lista, presionar obtener altura e iniar la practica";
+    // this.name = "Caida Libre";
+    // this.descripcion = "se debe ajustar la altura, verificar que la practica este lista, presionar obtener altura e iniar la practica";
 
   }
 
   ionViewDidEnter() {
     this.device = this.navParams.get('deviceConectado');
     // ojo se deben descomentar esto
-   // this.name = this.device.name;
-   // this.descripcion = this.device.descripcion;
+    this.name = this.device.name;
+     this.descripcion = this.device.descripcion;
     console.log('carga');
     console.log(this.device);
     
@@ -107,67 +107,67 @@ this.bitacora.addBitacora(this.newbitacora).then(ref=>{
   this.llave=ref.key
 });
 
-  //   this.bluetooth.bluetoothSerial.isConnected().then(
-  //     isConnected => {
-  //       let alert = this.alertCtrl.create({
-  //         title: 'Reconectar',
-  //         message: '¿Desea reconectar a este dispositivo?',
-  //         buttons: [
-  //           {
-  //             text: 'Cancelar',
-  //             role: 'cancel',
-  //             handler: () => {
-  //               console.log('Cancel clicked');
-  //             }
-  //           },
-  //           {
-  //             text: 'Aceptar',
-  //             handler: () => {
-  //               this.bluetooth.desconectar();
-  //               this.bluetooth.conectar(seleccion.id).then(success => {
+    this.bluetooth.bluetoothSerial.isConnected().then(
+      isConnected => {
+        let alert = this.alertCtrl.create({
+          title: 'Reconectar',
+          message: '¿Desea reconectar a este dispositivo?',
+          buttons: [
+            {
+              text: 'Cancelar',
+              role: 'cancel',
+              handler: () => {
+                console.log('Cancel clicked');
+              }
+            },
+            {
+              text: 'Aceptar',
+              handler: () => {
+                this.bluetooth.desconectar();
+                this.bluetooth.conectar(seleccion.id).then(success => {
                   
-  //                 this.bluetooth.presentToast(success);
-  //               }, fail => {
-  //                 this.bluetooth.presentToast(fail);
-  //               });
-  //             }
-  //           }
-  //         ]
-  //       });
-  //       alert.present();
-  //     }, notConnected => {
-  //       let alert = this.alertCtrl.create({
-  //         title: 'Conectar',
-  //         message: '¿Desea conectar el dispositivo?',
-  //         buttons: [
-  //           {
-  //             text: 'Cancelar',
-  //             role: 'cancel',
-  //             handler: () => {
-  //               console.log('Cancel clicked');
-  //             }
-  //           },
-  //           {
-  //             text: 'Aceptar',
-  //             handler: () => {
-  //               this.bluetooth.conectar(seleccion.id).then(success => {
-  //                 this.bluetooth.presentToast(success);
-  //                 this.estadoConexion = "conectada";
-  //                 this.isenabled = true;
-  //                 this.mensaje = "2";
-  //               //  this.enviarMensajes();
+                  this.bluetooth.presentToast(success);
+                }, fail => {
+                  this.bluetooth.presentToast(fail);
+                });
+              }
+            }
+          ]
+        });
+        alert.present();
+      }, notConnected => {
+        let alert = this.alertCtrl.create({
+          title: 'Conectar',
+          message: '¿Desea conectar el dispositivo?',
+          buttons: [
+            {
+              text: 'Cancelar',
+              role: 'cancel',
+              handler: () => {
+                console.log('Cancel clicked');
+              }
+            },
+            {
+              text: 'Aceptar',
+              handler: () => {
+                this.bluetooth.conectar(seleccion.id).then(success => {
+                  this.bluetooth.presentToast(success);
+                  this.estadoConexion = "conectada";
+                  this.isenabled = true;
+                  this.mensaje = "2";
+                  this.enviarMensajes();
 
-  //               }, fail => {
-  //                 this.bluetooth.presentToast(fail);
-  //               });
-  //             }
-  //           }
-  //         ]
-  //       });
-  //       alert.present();
-  //   });
+                }, fail => {
+                  this.bluetooth.presentToast(fail);
+                });
+              }
+            }
+          ]
+        });
+        alert.present();
+    });
 
-  //  // this.isenabled = true;
+   // this.isenabled = true;
   }
 
   enviarMensajes() {
@@ -184,13 +184,13 @@ this.bitacora.addBitacora(this.newbitacora).then(ref=>{
             this.isenabled2 = true;
             this.lista = "PRACTICA LISTA"
             this.altura = entrada.substr(2,entrada.length - 1);
-            //this.altura = entrada.length;
+            this.altura = entrada.length;
           }else if(entrada.substr(0,2)==="t:"){
             this.isenabled2 = true;
             this.lista = "PRACTICA LISTA"
             this.tiempo = entrada.substr(2,entrada.length - 1);
             this.terminar = false;
-            // this.guardarVariables(this.altura, this.tiempo);
+            this.guardarVariables(this.altura, this.tiempo);
           }else if(entrada==="PRACTICA NO LISTA"){
             this.lista = entrada;
             this.isenabled2 = false;
@@ -217,7 +217,7 @@ iniciarPractica(){
   this.mensaje = "1";
    this.terminar = false;
 ///temporal
-   this.tiempo = 0.2;
+  // this.tiempo = 0.2;
    this.guardarVariables(this.altura,this.tiempo);
 
 //  this.enviarMensajes();
@@ -226,7 +226,7 @@ pedirAltura(){
   this.mensaje = "2"
   this.terminar = false;
 // temporal
-  this.altura= 7;
+//  this.altura= 7;
   this.isenabled2 = true;
 
  // this.enviarMensajes();
