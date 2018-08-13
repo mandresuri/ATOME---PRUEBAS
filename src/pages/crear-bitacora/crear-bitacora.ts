@@ -97,7 +97,8 @@ this.fecha  = new Date().toLocaleDateString();
 this.estacionId = 'est1'; // por ahora, esto se debe traer del device
 
 this.newbitacora ={
-    nombre: 'Caida libre', //this.device.name,
+    nombre: this.device.name,
+  //  nombre: 'Caida libre', //this.device.name,
     usuario: this.global.uid,
     fecha: this.fecha,
     estacion: this.estacionId
@@ -220,7 +221,7 @@ iniciarPractica(){
   // this.tiempo = 0.2;
    this.guardarVariables(this.altura,this.tiempo);
 
-//  this.enviarMensajes();
+  this.enviarMensajes();
 }
 pedirAltura(){
   this.mensaje = "2"
@@ -229,7 +230,7 @@ pedirAltura(){
 //  this.altura= 7;
   this.isenabled2 = true;
 
- // this.enviarMensajes();
+  this.enviarMensajes();
 }
 
 

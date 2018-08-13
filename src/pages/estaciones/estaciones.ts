@@ -36,31 +36,31 @@ export class EstacionesPage {
   }
 
   ionViewDidEnter() {
-    // this.platform.ready().then(() => {
-    //   this.atomeList$ = this.atome.getEstacionesList().snapshotChanges().map(changes => {
-    //     return changes.map(c => ({
-    //       key: c.payload.key, ...c.payload.val()
-    //     }));
-    //   });
+    this.platform.ready().then(() => {
+      this.atomeList$ = this.atome.getEstacionesList().snapshotChanges().map(changes => {
+        return changes.map(c => ({
+          key: c.payload.key, ...c.payload.val()
+        }));
+      });
 
 
-    //   this.bluetooth.buscar_bluetooth().then((success: Array<Object>) => {
-    //     this.li_devices = success;
-    //     this.atomeList$.subscribe(data => {
-    //         data.forEach(atom => {
-    //           this.li_devices.forEach(dev => {
-    //             if ( atom.id === dev.id ) {
-    //               this.devices.push(dev);
-    //             }
-    //           });
-    //         });
-    //     })
-    //     this.mostrarSpiner = false;
-    //   }, fail => {
-    //     this.bluetooth.presentToast(fail);
-    //     this.mostrarSpiner = false;
-    //   });
-    // });
+      this.bluetooth.buscar_bluetooth().then((success: Array<Object>) => {
+        this.li_devices = success;
+        this.atomeList$.subscribe(data => {
+            data.forEach(atom => {
+              this.li_devices.forEach(dev => {
+                if ( atom.id === dev.id ) {
+                  this.devices.push(dev);
+                }
+              });
+            });
+        })
+        this.mostrarSpiner = false;
+      }, fail => {
+        this.bluetooth.presentToast(fail);
+        this.mostrarSpiner = false;
+      });
+    });
   
   }
 
