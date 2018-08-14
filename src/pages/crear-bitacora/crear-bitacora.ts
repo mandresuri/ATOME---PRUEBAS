@@ -74,7 +74,6 @@ export class CrearBitacoraPage {
 
   ionViewDidEnter() {
     this.device = this.navParams.get('deviceConectado');
-    // ojo se deben descomentar esto
     this.name = this.device.name;
      this.descripcion = this.device.descripcion;
     console.log('carga');
@@ -168,7 +167,6 @@ this.bitacora.addBitacora(this.newbitacora).then(ref=>{
         alert.present();
     });
 
-   // this.isenabled = true;
   }
 
   enviarMensajes() {
@@ -185,7 +183,7 @@ this.bitacora.addBitacora(this.newbitacora).then(ref=>{
             this.isenabled2 = true;
             this.lista = "PRACTICA LISTA"
             this.altura = entrada.substr(2,entrada.length - 1);
-            this.altura = entrada.length;
+           // this.altura = entrada.length;
           }else if(entrada.substr(0,2)==="t:"){
             this.isenabled2 = true;
             this.lista = "PRACTICA LISTA"
@@ -219,9 +217,9 @@ iniciarPractica(){
    this.terminar = false;
 ///temporal
   // this.tiempo = 0.2;
+   this.enviarMensajes();
    this.guardarVariables(this.altura,this.tiempo);
-
-  this.enviarMensajes();
+  
 }
 pedirAltura(){
   this.mensaje = "2"
