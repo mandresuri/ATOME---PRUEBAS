@@ -26,9 +26,8 @@
     <ion-searchbar (ionInput)="getItems($event)" placeholder="Buscar"></ion-searchbar>
     <!-- se deben listar en orden de posibilidad de canje -->
     <ion-list class="ancho">
-    <ion-card ion-item >  
+    <ion-card ion-item class="cartas" [hidden]="mostrarSpiner === false" >  
         <!-- *ngFor="let bitacora of bitacoras let i = index" -->
-        <div class="borde">
           <ion-refresher *ngIf="mostrarSpiner === false" (ionRefresh)="refresh_bluetooth($event)">
             <ion-refresher-content refreshingText="Buscando dispositivos bluetooth"></ion-refresher-content>
           </ion-refresher>
@@ -36,7 +35,7 @@
             <ion-spinner></ion-spinner>
             Buscando dispositivos bluetooth
           </ion-segment>
-          <ion-item-group>
+          <ion-item-group >
             <ion-item-sliding *ngFor="let device of devices">
               <button (click)="openPageHija('CrearBitacoraPage',device)" ion-item>
                 <h3>Nombre: {{device.name}}</h3>
@@ -47,7 +46,7 @@
             </ion-item-sliding>
           </ion-item-group>
 
-      </div>
+     
       </ion-card>
     
     </ion-list>

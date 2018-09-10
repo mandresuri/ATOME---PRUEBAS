@@ -8,12 +8,12 @@ page-estaciones {
                   color : black
         }
     .groupTabs{
-        background-color: #acc5c6 ;
-        border-right-color: #244c24;
-        border-right-style: inset;
+        background-color: #4EC5DA ;
+        border-right-color: #10A6C2;
+        border-right-style: solid;
        }
         .tab{
-            background-color: #acc5c6 ;
+            background-color: #4EC5DA ;
             font-size: 20px;
             color: black;
             margin-left: 9em;
@@ -56,6 +56,10 @@ page-estaciones {
        }
        .desc{
         overflow: scroll;
+    }
+    .cartas{
+        background-color: #AADBCC;
+        border-radius: 16px;
     }
 
     .borde{

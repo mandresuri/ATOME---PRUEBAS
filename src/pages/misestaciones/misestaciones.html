@@ -25,47 +25,34 @@
   <ion-content padding>
       <ion-searchbar (ionInput)="getItems($event)" placeholder="Buscar"></ion-searchbar>
       <!-- se deben listar en orden de posibilidad de canje -->
+      <ion-refresher  (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content refreshingText="Obteniendo Información..."></ion-refresher-content>
+      </ion-refresher>
       <ion-list class="ancho">
       <ion-card ion-item *ngFor="let bitacora of items$ | async " >  
           <!--  -->
-          <div class="borde">
-        <ion-item>
+        <ion-item  class="cartas"  (click)="openPageDetalle('BitacoraDetallePage', bitacora.key)">
           <ion-card-content>
            
-            <ion-card-title>
+            <ion-card-title class="centrar negrita">
               {{bitacora.nombre}}
               </ion-card-title>
-            <p  class="desc">
-             descripcion
-            </p>
-          <ion-row>
-           <p> <b>Est. Trabajo:  </b>  {{bitacora.estacion}} </p>
-          </ion-row>
+          
+        
           <ion-row class="opciones">
-            <ion-col>
-              <div class="letra17">
-                <br>
-                  Terminada
-              </div>
-              
-            <!-- <button class="opcion puntos"><ion-icon name="star"></ion-icon><br>{{premio.valorPuntos}}</button> -->
-            </ion-col>  
-            <ion-col>
+           <ion-col></ion-col>
+            <ion-col class="cardFecha">
               <div class="letra17">
                 <ion-icon name="calendar"></ion-icon><br>
                 {{bitacora.fecha}}
               </div>
               </ion-col>
-              <ion-col>
-                 
-                <button class="opcion puntos" (click)="openPageDetalle('BitacoraDetallePage', bitacora.key)"><ion-icon name="eye"></ion-icon><br>ver</button>
-                </ion-col>      
+              <ion-col></ion-col>
           </ion-row>
        
         </ion-card-content>
      
           </ion-item>
-        </div>
         </ion-card>
       
       </ion-list>

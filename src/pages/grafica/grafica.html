@@ -1,0 +1,31 @@
+
+
+
+<ion-header class="top">
+    <ion-toolbar color="azulatome">
+      <ion-title>
+        Gráfica
+      </ion-title>
+      <ion-buttons start>
+        <button ion-button (click)="dismiss()">
+       
+          <ion-icon name="md-close"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+<ion-content padding class="top">
+    <ion-card>
+
+        <ion-card-content>
+            <canvas #lineCanvas></canvas>
+        </ion-card-content>
+    </ion-card>
+
+
+
+    
+        <button ion-button class="fin" color="atome"
+                (click)="generatePDF()">Generar PDF</button>
+
+</ion-content>

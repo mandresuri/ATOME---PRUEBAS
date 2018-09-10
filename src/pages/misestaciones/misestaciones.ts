@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { IonicPage, NavController, NavParams, MenuController } from "ionic-angular";
+import { IonicPage, NavController, NavParams, MenuController, Refresher } from "ionic-angular";
 import { BitacorasListService } from "../../services/bitacora/bitacora.service";
 import { AngularFireAuth } from "angularfire2/auth";
 import { AuthProvider } from "../../providers/auth/auth";
@@ -34,24 +34,17 @@ export class MisestacionesPage {
     this.bitacorasByUser = [];
     this.items$ = [];
     this.menu1Active();
-     
-    console.log('uid logeaddo');
-    console.log(this.global.uid);
+   
 
-    // this.bitacoraService.getBitacoraByUser(this.global.uid).snapshotChanges()
-    // .map(dato=>{
-    //   console.log(dato);
-    //   this.bitacorasByUser = dato;
-    //   this.items$ = dato;
-    // });
-    // this.bitacoraService.getBitacoraList().snapshotChanges()
-    //  .subscribe(dato=>{
-    //    console.log(dato);
-    //   this.bitacorasByUser = dato;
-    //    this.items$ = dato;
-    //  });
-   // this.bitacorasByUser = dato;
+    
       this.items$= this.bitacoraService.getBitacoraByUser(this.global.uid).snapshotChanges()
+    .map(dato=>{
+      return dato.map(c=>({
+        key: c.payload.key, ...c.payload.val()
+      }))
+      
+    });
+    this.bitacorasByUser =this.bitacoraService.getBitacoraByUser(this.global.uid).snapshotChanges()
     .map(dato=>{
       return dato.map(c=>({
         key: c.payload.key, ...c.payload.val()
@@ -61,6 +54,26 @@ export class MisestacionesPage {
 
 
   }
+  doRefresh(refresher) {
+    this.items$= this.bitacoraService.getBitacoraByUser(this.global.uid).snapshotChanges()
+    .map(dato=>{
+      return dato.map(c=>({
+        key: c.payload.key, ...c.payload.val()
+      }))
+      
+    });
+      setTimeout(() => {
+        refresher.complete();
+      }, 2000);
+      this.bitacorasByUser = this.bitacoraService.getBitacoraByUser(this.global.uid).snapshotChanges()
+      .map(dato=>{
+        return dato.map(c=>({
+          key: c.payload.key, ...c.payload.val()
+        }))
+        
+      });
+    }
+  
 
   ionViewDidLoad() {
   

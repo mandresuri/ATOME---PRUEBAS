@@ -1,3 +1,21 @@
 page-bitacora-detalle {
-
+  .titulo{
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold
+  }
+  .itemRow{
+    text-align: center;
+    font-size: 20px;
+  }
+  .itemCol{
+    background: #dbf7f8;
+    border-radius: 6px;
+  }
+  .negro{
+      color: black;
+  }
+  .blanco{
+    color: white;
+  }
 }

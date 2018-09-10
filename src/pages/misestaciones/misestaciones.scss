@@ -8,13 +8,13 @@ page-misestaciones {
                   color : black
         }
     .groupTabs{
-        background-color: #acc5c6 ;
-        border-right-color: #244c24;
-        border-right-style: inset;
+        background-color: #4EC5DA ;
+        border-right-color: #10A6C2;
+        border-right-style: solid;
        }
         .tab{
             font-size: 20px;
-            background-color: #acc5c6 ;
+            background-color: #4EC5DA ;
             color: black;
             margin-left: 9em;
         }
@@ -48,7 +48,7 @@ page-misestaciones {
        }
     
        .opcion{
-           background-color: white;
+           background-color: #d3eded;
            font-size: 18px;
        }
        .desc{
@@ -59,7 +59,18 @@ page-misestaciones {
         border-color: #244c24;
         border-style: inset;
     }
-    
+    .cartas{
+        background-color: #A2DCEE;
+        border-radius: 16px;
+    }
+    .cardFecha{
+        background-color: #b3e4f3;
+        width: 50%;
+        border-radius: 14px;
+    }
+    .negrita{
+        font-weight: bold;
+    }
 
         @media (max-width: 500px ) and (min-width: 300px){
             .tab{

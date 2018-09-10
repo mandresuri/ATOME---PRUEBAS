@@ -22,6 +22,9 @@ import { MedidasListService } from '../services/medidas/medidas.service';
 
 import { IonicStorageModule } from '@ionic/storage';
 
+import { FileOpener } from '@ionic-native/file-opener';
+import { File } from '@ionic-native/file';
+
 
 
 
@@ -41,7 +44,7 @@ import { IonicStorageModule } from '@ionic/storage';
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp
+    MyApp,
   ],
   providers: [
     StatusBar,
@@ -53,6 +56,8 @@ import { IonicStorageModule } from '@ionic/storage';
     MedidasListService,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthProvider,
+    File,
+		FileOpener
   ]
 })
 export class AppModule {}
