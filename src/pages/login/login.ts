@@ -4,9 +4,9 @@ import { IonicPage, NavController,  AlertController  } from 'ionic-angular';
 import { MenuController } from 'ionic-angular';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { User } from '../../app/models/user';
-//import { FirebaseObjectObservable} from 'angularfire2/database';
-import { AngularFireDatabase, AngularFireList, AngularFireObject } from 'angularfire2/database';
-import { Observable } from 'rxjs/Observable';
+// import { AngularFireDatabase, AngularFireList, AngularFireObject } from 'angularfire2/database';
+import { AngularFireDatabase, AngularFireObject, AngularFireList } from '@angular/fire/database';
+
 import { Usuarios } from '../../app/models/usuario';
 import { MyApp } from '../../app/app.component';
 

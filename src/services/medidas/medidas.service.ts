@@ -1,5 +1,7 @@
 import { Injectable } from "@angular/core";
-import { AngularFireDatabase } from "angularfire2/database";
+// import { AngularFireDatabase } from "angularfire2/database";
+import { AngularFireDatabase, AngularFireObject, AngularFireList } from '@angular/fire/database';
+
 import { Medida } from "../../app/models/medida";
 
 

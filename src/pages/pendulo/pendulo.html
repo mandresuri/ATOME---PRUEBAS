@@ -1,0 +1,69 @@
+<ion-header>
+  <ion-navbar color="azulatome">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Tomar Medidas</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <ion-label class="center">Estación de Trabajo:</ion-label>
+  <ion-label class="center style-titulo">{{name}}</ion-label>
+  <ion-label>Indicaciones de la Práctica:</ion-label>
+  <p class="justificado">{{descripcion}}</p>
+  <ion-item class="center">
+    <button class="style-btn" *ngIf="!isenabled" ion-button icon-end (click)="conectar(device)">
+      Conectar
+      <ion-icon name="bluetooth"></ion-icon>
+    </button>
+    <button *ngIf="isenabled" ion-button icon-end color="danger" (click)="desconectar()">
+      Desconectar
+      <ion-icon name="bluetooth"></ion-icon>
+    </button>
+  </ion-item>
+
+  <ion-row>
+    <ion-card>
+      <ion-card-header class="style-header">
+        <ion-label>Medidas</ion-label>
+
+      </ion-card-header>
+      <ion-card-content>
+        <ion-row>
+          <ion-col col-12 class="center">
+            <button class="style-btn-nuevo" ion-button (click)="iniciarPractica()">Iniciar</button>
+          </ion-col>
+
+
+        </ion-row>
+        <canvas class="canva" #lineCanvasPendulo></canvas>
+
+        <!-- <ion-row>
+          <ion-col col-12>
+          </ion-col>
+
+        </ion-row> -->
+
+        <ion-row>
+          <ion-col col-12 class="center">
+            <button class="style-btn-nuevo style-btn-detener" ion-button (click)="detenerPractica()">Detener</button>
+          </ion-col>
+
+        </ion-row>
+        <ion-label>Cant. Medidas Obtenidas: {{conteoMedidas}}</ion-label>
+
+      </ion-card-content>
+    </ion-card>
+
+  </ion-row>
+  <ion-row>
+    <ion-row col-12>
+
+      <button style="width: 100%;" ion-button color="dark" [disabled]="!estadoSalir" (click)="openPageDetalle('BitacoraDetallePage', llave)">Terminar Toma de Medidas</button>
+
+    </ion-row>
+  </ion-row>
+
+
+
+</ion-content>

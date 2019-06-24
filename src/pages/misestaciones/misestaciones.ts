@@ -1,119 +1,122 @@
 import { Component } from "@angular/core";
 import { IonicPage, NavController, NavParams, MenuController, Refresher } from "ionic-angular";
 import { BitacorasListService } from "../../services/bitacora/bitacora.service";
-import { AngularFireAuth } from "angularfire2/auth";
 import { AuthProvider } from "../../providers/auth/auth";
-import { Observable } from "@firebase/util";
-import { Storage } from '@ionic/storage';
 import { MyApp } from "../../app/app.component";
+import { Storage } from '@ionic/storage';
+import { Bitacora } from "../../app/models/bitacora";
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFireDatabase, AngularFireObject, AngularFireList } from '@angular/fire/database';
+// import { Observable } from "rxjs";
+// import { of } from 'rxjs';
 
-
-
-/**
- * Generated class for the MisestacionesPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
+interface const_bitacora {
+  key: string,
+  nombre: string,
+  fecha: string,
+  estacion: string,
+  usuario: string
+}
 @IonicPage()
 @Component({
   selector: "page-misestaciones",
   templateUrl: "misestaciones.html",
 })
+
+
 export class MisestacionesPage {
-  userID : Observable<string>;
-  bitacorasByUser: any=[];
-  items$: any=[];
+
+  bita: any;
+  bitacoref: AngularFireList<{}>;
+  uid: any;
+  bitacorasByUser: any;
+  items$: any = [];
+
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    public menu: MenuController, public bitacoraService : BitacorasListService,
-    private afAuth: AngularFireAuth, public autenticacion : AuthProvider,
-    public global : MyApp,
+    public menu: MenuController, public bitacoraService: BitacorasListService,
+    private afAuth: AngularFireAuth, public autenticacion: AuthProvider,
+    public global: MyApp, private storage: Storage, private database: AngularFireDatabase,
 
   ) {
     this.bitacorasByUser = [];
     this.items$ = [];
     this.menu1Active();
-   
-
-    
-      this.items$= this.bitacoraService.getBitacoraByUser(this.global.uid).snapshotChanges()
-    .map(dato=>{
-      return dato.map(c=>({
-        key: c.payload.key, ...c.payload.val()
-      }))
-      
-    });
-    this.bitacorasByUser =this.bitacoraService.getBitacoraByUser(this.global.uid).snapshotChanges()
-    .map(dato=>{
-      return dato.map(c=>({
-        key: c.payload.key, ...c.payload.val()
-      }))
-      
-    });
-
-
   }
-  doRefresh(refresher) {
-    this.items$= this.bitacoraService.getBitacoraByUser(this.global.uid).snapshotChanges()
-    .map(dato=>{
-      return dato.map(c=>({
-        key: c.payload.key, ...c.payload.val()
-      }))
-      
-    });
-      setTimeout(() => {
-        refresher.complete();
-      }, 2000);
-      this.bitacorasByUser = this.bitacoraService.getBitacoraByUser(this.global.uid).snapshotChanges()
-      .map(dato=>{
-        return dato.map(c=>({
-          key: c.payload.key, ...c.payload.val()
-        }))
-        
-      });
-    }
-  
 
   ionViewDidLoad() {
-  
+    this.cargarBitacoras();
   }
+  obtenerInfo() {
+
+    this.database.list('bitacora', ref => ref.orderByChild('usuario').equalTo(this.uid)).snapshotChanges()
+      .subscribe(actions => {
+        actions.forEach(action => {
+          this.items$.push({
+            key: action.payload.key,
+            data: action.payload.val()
+          });
+        });
+
+      });
+  }
+  cargarBitacoras() {
+    this.bitacorasByUser = [];
+    this.items$ = [];
+    // se consultan las bitacoras de cada usuario
+    this.storage.get('id').then((val) => {
+      this.uid = val;
+    });
+    setTimeout(() => {
+
+      this.obtenerInfo();
+      this.bitacorasByUser = this.items$;
+    }, 400);
+  }
+  doRefresh(refresher) {
+    this.obtenerInfo();
+    setTimeout(() => {
+      refresher.complete();
+    }, 2000);
+  }
+
+
 
   menu1Active() {
     this.menu.enable(true, "menu1");
     this.menu.enable(false, "menu2");
   }
 
-  openPage(page){
+  openPage(page) {
     this.navCtrl.setRoot(page);
-}
+  }
 
-openPageHija(page){
-  this.navCtrl.push(page);
-}
+  openPageHija(page) {
+    this.navCtrl.push(page);
+  }
 
-initializeItems() {
-  this.items$=this.bitacorasByUser;
- }
-getItems(searchbar) {
-  // Reset items back to all of the items
-this.initializeItems();
+  initializeItems() {
+    this.items$ = this.bitacorasByUser;
+  }
 
-  // set q to the value of the searchbar
-  let q = searchbar.target.value;
- if (q && q.trim()!= ''){
-  this.items$ = this.items$.filter((item) => {
-      return (item.nombre.toLowerCase().indexOf(q.toLowerCase()) > -1);
-    
-  });
-  
-}
-}
+  getItems(searchbar) {
+    // Reset items back to all of the items
+    this.initializeItems();
+    // set q to the value of the searchbar
+    let q = searchbar.target.value;
+    if (q && q.trim() != '') {
+      this.items$ = this.items$.filter((item) => {
+        // busca por dos parametros, nombre o fecha
+        return ((item.nombre.toLowerCase().indexOf(q.toLowerCase()) > -1) || (item.fecha.toLowerCase().indexOf(q.toLowerCase()) > -1));
 
-openPageDetalle(page, bitacora) {
-  console.log(bitacora)
-  this.navCtrl.push(page, {llave:bitacora});
-}
+      });
+
+    }
+  }
+
+  openPageDetalle(page, bitacora, estacion) {
+
+    this.navCtrl.push(page, { llave: bitacora, est: estacion });
+  }
 
 
 }

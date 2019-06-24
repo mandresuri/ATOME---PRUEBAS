@@ -6,10 +6,13 @@ import { MyApp } from './app.component';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+// import { AngularFireModule } from '@angular/fire';
+// import { AngularFireDatabaseModule, AngularFireDatabase } from '@angular/fire/database';
 
-import { AngularFireModule } from 'angularfire2';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
-import { AngularFireAuthModule } from 'angularfire2/auth';
+
+// import { AngularFireModule } from 'angularfire2';
+// import { AngularFireDatabaseModule } from 'angularfire2/database';
+// import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AuthProvider } from '../providers/auth/auth';
 import { BluetoothArduinoService } from '../services/bluetoothArduino/bluetoothArduino.service';
 import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
@@ -24,6 +27,18 @@ import { IonicStorageModule } from '@ionic/storage';
 
 import { FileOpener } from '@ionic-native/file-opener';
 import { File } from '@ionic-native/file';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { CrearBitacoraPageModule } from '../pages/crear-bitacora/crear-bitacora.module';
+import { EstacionesPageModule } from '../pages/estaciones/estaciones.module';
+import { GraficaPageModule } from '../pages/grafica/grafica.module';
+import { LoginPageModule } from '../pages/login/login.module';
+import { MisestacionesPageModule } from '../pages/misestaciones/misestaciones.module';
+import { PenduloDoblePageModule } from '../pages/pendulo-doble/pendulo-doble.module';
+import { BitacoraDetallePageModule } from '../pages/bitacora-detalle/bitacora-detalle.module';
+import { PenduloPageModule } from '../pages/pendulo/pendulo.module';
+
 
 
 
@@ -32,7 +47,7 @@ import { File } from '@ionic-native/file';
 @NgModule({
   declarations: [
     MyApp
-    
+
   ],
   imports: [
     BrowserModule,
@@ -40,6 +55,14 @@ import { File } from '@ionic-native/file';
     AngularFireModule.initializeApp(FIREBASE_CONFIG),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
+    BitacoraDetallePageModule,
+    CrearBitacoraPageModule,
+    EstacionesPageModule,
+    GraficaPageModule,
+    LoginPageModule,
+    MisestacionesPageModule,
+    PenduloPageModule,
+    PenduloDoblePageModule,
     IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
@@ -54,10 +77,10 @@ import { File } from '@ionic-native/file';
     EstacionesListService,
     BitacorasListService,
     MedidasListService,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
     AuthProvider,
     File,
-		FileOpener
+    FileOpener
   ]
 })
-export class AppModule {}
+export class AppModule { }

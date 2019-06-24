@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController, Platform, AlertController } from 'ionic-angular';
-import {  AngularFireObject , AngularFireList  } from 'angularfire2/database';
-import { AngularFireDatabase } from 'angularfire2/database';
-import { Observable } from 'rxjs/Observable';
+//import {  AngularFireObject , AngularFireList  } from 'angularfire2/database';
+// import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireDatabase, AngularFireObject, AngularFireList } from '@angular/fire/database';
+
+
 import { BluetoothArduinoService } from '../../services/bluetoothArduino/bluetoothArduino.service';
 import { log } from 'util';
 import { Bitacora } from "../../app/models/bitacora";
@@ -10,6 +12,7 @@ import { BitacorasListService } from "../../services/bitacora/bitacora.service";
 import { Medida } from "../../app/models/medida";
 import { MedidasListService } from "../../services/medidas/medidas.service";
 import { MyApp } from "../../app/app.component";
+import { Observable } from 'rxjs';
 
 
 
@@ -33,40 +36,40 @@ export class CrearBitacoraPage {
   mensaje: string = "";
   device: any;
   items: Observable<any[]>;
-  estadoConexion:string;
+  estadoConexion: string;
   isenabled: boolean;
   isenabled2: boolean;
-  terminar : boolean;
-  newbitacora : Bitacora;
-  newmedida : Medida;
-  estacionId : string;
-  fecha : string;
-  name : string;
-  descripcion : string;
+  terminar: boolean;
+  newbitacora: Bitacora;
+  newmedida: Medida;
+  estacionId: string;
+  fecha: string;
+  name: string;
+  descripcion: string;
 
-  llave : string;
+  llave: string;
   public selectedvalue;
-  constructor(public navCtrl: NavController, 
+  constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private database: AngularFireDatabase,
     public menu: MenuController,
     private bluetooth: BluetoothArduinoService,
     private platform: Platform,
     private alertCtrl: AlertController,
-    private bitacora : BitacorasListService,
-    private medida : MedidasListService,
-     public global : MyApp,
+    private bitacora: BitacorasListService,
+    private medida: MedidasListService,
+    public global: MyApp,
   ) {
     this.device = this.navParams.get('deviceConectado');
-    console.log('carga estaciones');   
+    console.log('carga estaciones');
     this.items = database.list('estacion').valueChanges();
     console.log('selecciona');
     console.log(this.selectedvalue);
   }
 
-  
+
   ionViewDidLoad() {
-// esto es temporal
+    // esto es temporal
     // this.name = "Caida Libre";
     // this.descripcion = "se debe ajustar la altura, verificar que la practica este lista, presionar obtener altura e iniar la practica";
 
@@ -75,37 +78,37 @@ export class CrearBitacoraPage {
   ionViewDidEnter() {
     this.device = this.navParams.get('deviceConectado');
     this.name = this.device.name;
-     this.descripcion = this.device.descripcion;
+    this.descripcion = this.device.descripcion;
     console.log('carga');
     console.log(this.device);
-    
-    
+
+
     this.estadoConexion = "No Conectado";
-    this.isenabled =false;
+    this.isenabled = false;
   }
   menu1Active() {
     this.menu.enable(true, 'menu1');
   }
-  onChange(){
-  console.log('selecciona');
-  console.log(this.selectedvalue);
-}
+  onChange() {
+    console.log('selecciona');
+    console.log(this.selectedvalue);
+  }
 
-conectar(seleccion){
-this.fecha  = new Date().toLocaleDateString();
-this.estacionId = 'est1'; // por ahora, esto se debe traer del device
+  conectar(seleccion) {
+    this.fecha = new Date().toLocaleDateString();
+    this.estacionId = 'est1'; // por ahora, esto se debe traer del device
 
-this.newbitacora ={
-    nombre: this.device.name,
-  //  nombre: 'Caida libre', //this.device.name,
-    usuario: this.global.uid,
-    fecha: this.fecha,
-    estacion: this.estacionId
-}  ;
+    this.newbitacora = {
+      nombre: this.device.name,
+      //  nombre: 'Caida libre', //this.device.name,
+      usuario: this.global.uid,
+      fecha: this.fecha,
+      estacion: this.estacionId
+    };
 
-this.bitacora.addBitacora(this.newbitacora).then(ref=>{
-  this.llave=ref.key
-});
+    this.bitacora.addBitacora(this.newbitacora).then(ref => {
+      this.llave = ref.key
+    });
 
     this.bluetooth.bluetoothSerial.isConnected().then(
       isConnected => {
@@ -125,7 +128,7 @@ this.bitacora.addBitacora(this.newbitacora).then(ref=>{
               handler: () => {
                 this.bluetooth.desconectar();
                 this.bluetooth.conectar(seleccion.id).then(success => {
-                  
+
                   this.bluetooth.presentToast(success);
                 }, fail => {
                   this.bluetooth.presentToast(fail);
@@ -165,13 +168,13 @@ this.bitacora.addBitacora(this.newbitacora).then(ref=>{
           ]
         });
         alert.present();
-    });
+      });
 
   }
 
   enviarMensajes() {
 
-   this.terminar = true;
+    this.terminar = true;
 
 
     this.bluetooth.conexionMensajes = this.bluetooth.dataInOut(this.mensaje).subscribe(data => {
@@ -179,22 +182,22 @@ this.bitacora.addBitacora(this.newbitacora).then(ref=>{
       if (entrada != ">") {
         if (entrada != "") {
           this.recibido = entrada;
-          if(entrada.substr(0,2)==="a:"){
+          if (entrada.substr(0, 2) === "a:") {
             this.isenabled2 = true;
             this.lista = "PRACTICA LISTA"
-            this.altura = entrada.substr(2,entrada.length - 1);
-           // this.altura = entrada.length;
-          }else if(entrada.substr(0,2)==="t:"){
+            this.altura = entrada.substr(2, entrada.length - 1);
+            // this.altura = entrada.length;
+          } else if (entrada.substr(0, 2) === "t:") {
             this.isenabled2 = true;
             this.lista = "PRACTICA LISTA"
-            this.tiempo = entrada.substr(2,entrada.length - 1);
+            this.tiempo = entrada.substr(2, entrada.length - 1);
             this.terminar = false;
             this.guardarVariables(this.altura, this.tiempo);
-          }else if(entrada==="PRACTICA NO LISTA"){
+          } else if (entrada === "PRACTICA NO LISTA") {
             this.lista = entrada;
             this.isenabled2 = false;
           }
-          
+
           console.log(`Entrada: ${entrada}`);
           this.bluetooth.presentToast(entrada);
         }
@@ -206,48 +209,49 @@ this.bitacora.addBitacora(this.newbitacora).then(ref=>{
     });
   }
 
-  desconectar(){
+  desconectar() {
     this.bluetooth.desconectar();
     this.isenabled = false;
   }
 
-iniciarPractica(){
-  console.log('inicia la practica');
-  this.mensaje = "1";
-   this.terminar = false;
-///temporal
-  // this.tiempo = 0.2;
-   this.enviarMensajes();
-   this.guardarVariables(this.altura,this.tiempo);
-  
-}
-pedirAltura(){
-  this.mensaje = "2"
-  this.terminar = false;
-// temporal
-//  this.altura= 7;
-  this.isenabled2 = true;
+  iniciarPractica() {
+    console.log('inicia la practica');
+    this.mensaje = "1";
+    this.terminar = false;
+    ///temporal
+    // this.tiempo = 0.2;
+    this.enviarMensajes();
+    this.guardarVariables(this.altura, this.tiempo);
 
-  this.enviarMensajes();
-}
+  }
+  pedirAltura() {
+    this.mensaje = "2"
+    this.terminar = false;
+    // temporal
+    //  this.altura= 7;
+    this.isenabled2 = true;
+
+    this.enviarMensajes();
+  }
 
 
- guardarVariables(altura, tiempo){
-  // console.log('guardar variables');
+  guardarVariables(altura, tiempo) {
+    // console.log('guardar variables');
 
- this.newmedida = {
-  altura: altura,
-  tiempo: tiempo,
-  bitacora: this.llave
- }
- this.medida.addMedida(this.newmedida);
-   this.terminar = true;
- }
+    this.newmedida = {
+      altura: altura,
+      tiempo: tiempo,
+      angulo: altura,
+      bitacora: this.llave
+    }
+    this.medida.addMedida(this.newmedida);
+    this.terminar = true;
+  }
 
 
 
   openPageDetalle(page, bitacora) {
-    this.navCtrl.push(page, {llave:bitacora});
+    this.navCtrl.push(page, { llave: bitacora });
   }
 
 }

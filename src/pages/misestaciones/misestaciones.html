@@ -1,65 +1,63 @@
 <ion-header>
-    <ion-navbar color="azulatome">
-      <button ion-button menuToggle>
-        <ion-icon name="menu"></ion-icon>
-      </button>
-      <ion-title>Estaciones de Trabajo</ion-title>
-    </ion-navbar>
-    <ion-navbar color="azulatome">
-      <ion-row >
-        <ion-col class="groupTabs">
-          <div class="centrar">
+  <ion-navbar color="azulatome">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Estaciones de Trabajo</ion-title>
+  </ion-navbar>
+  <ion-navbar color="azulatome">
+    <ion-row>
+      <ion-col class="groupTabs">
+        <div class="centrar">
           <button class="tab tab1" (click)="openPage('MisestacionesPage')">Mis Bitácoras</button>
         </div>
-        </ion-col>
-        <ion-col class="">
-            <div class="centrar">
-          <button class="tab tab2"  (click)="openPage('EstacionesPage')"> Estaciones de Trabajo</button>
+      </ion-col>
+      <ion-col class="">
+        <div class="centrar">
+          <button class="tab tab2" (click)="openPage('EstacionesPage')"> Estaciones de Trabajo</button>
         </div>
-        </ion-col>
-      
-      </ion-row>
-     </ion-navbar>
-  </ion-header>
-  
-  <ion-content padding>
-      <ion-searchbar (ionInput)="getItems($event)" placeholder="Buscar"></ion-searchbar>
-      <!-- se deben listar en orden de posibilidad de canje -->
-      <ion-refresher  (ionRefresh)="doRefresh($event)">
-        <ion-refresher-content refreshingText="Obteniendo Información..."></ion-refresher-content>
-      </ion-refresher>
-      <ion-list class="ancho">
-      <ion-card ion-item *ngFor="let bitacora of items$ | async " >  
-          <!--  -->
-        <ion-item  class="cartas"  (click)="openPageDetalle('BitacoraDetallePage', bitacora.key)">
-          <ion-card-content>
-           
-            <ion-card-title class="centrar negrita">
-              {{bitacora.nombre}}
-              </ion-card-title>
-          
-        
+      </ion-col>
+
+    </ion-row>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-searchbar (ionInput)="getItems($event)" placeholder="Buscar"></ion-searchbar>
+  <!-- se deben listar en orden de posibilidad de canje -->
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content refreshingText="Obteniendo Información..."></ion-refresher-content>
+  </ion-refresher>
+  <ion-list class="ancho">
+    <ion-card ion-item *ngFor="let bitacora of items$ ">
+      <ion-item class="cartas" (click)="openPageDetalle('BitacoraDetallePage', bitacora.key, bitacora.data.estacion)">
+        <ion-card-content>
+
+          <ion-card-title class="centrar negrita">
+            {{bitacora.data.nombre}}
+          </ion-card-title>
+
+
           <ion-row class="opciones">
-           <ion-col></ion-col>
+            <ion-col></ion-col>
             <ion-col class="cardFecha">
               <div class="letra17">
-                <ion-icon name="calendar"></ion-icon><br>
-                {{bitacora.fecha}}
+                <ion-icon name="calendar"></ion-icon>
+                <br> {{bitacora.data.fecha}}
               </div>
-              </ion-col>
-              <ion-col></ion-col>
+            </ion-col>
+            <ion-col></ion-col>
           </ion-row>
-       
-        </ion-card-content>
-     
-          </ion-item>
-        </ion-card>
-      
-      </ion-list>
 
-      <!-- <ion-fab right bottom>
+        </ion-card-content>
+
+      </ion-item>
+    </ion-card>
+
+  </ion-list>
+
+  <!-- <ion-fab right bottom>
           <button ion-fab color="atome" (click)="openPageHija('CrearBitacoraPage')"><ion-icon name="add"></ion-icon></button>
          
         </ion-fab> -->
-  </ion-content>
-  
+</ion-content>
