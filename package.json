@@ -46,7 +46,7 @@
     "zone.js": "git://github.com/JiaLiPassion/zone.js#jasmine-dist"
   },
   "devDependencies": {
-    "@angular/cli": "^1.7.4",
+    "@angular/cli": "^14.2.8",
     "@ionic/app-scripts": "3.1.8",
     "@ionic/lab": "1.0.6",
     "@types/jasmine": "^2.8.6",
